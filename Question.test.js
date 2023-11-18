@@ -53,11 +53,31 @@ test("calls onAnswered after 10 seconds", () => {
   expect(onAnswered).toHaveBeenCalledWith(false);
 });
 
-test("clears the timeout after unmount", () => {
-  jest.spyOn(window, 'clearTimeout');
-  const { unmount } = render(
-    <Question question={testQuestion} onAnswered={noop} />
-  );
-  unmount();
-  expect(clearTimeout).toHaveBeenCalled();
+test("decrements the timer by 1 every second", () => {
+  render(<Question question={testQuestion} onAnswered={noop} />);
+  expect(screen.queryByText((content, element) => {
+    const hasText = (text) => element.textContent.includes(text);
+    return hasText("seconds remaining");
+  })).toBeInTheDocument();
+  act(() => {
+    jest.advanceTimersByTime(1000);
+  });
+  expect(screen.queryByText((content, element) => {
+    const hasText = (text) => element.textContent.includes(text);
+    return hasText("9 seconds remaining");
+  })).toBeInTheDocument();
+  act(() => {
+    jest.advanceTimersByTime(1000);
+  });
+  expect(screen.queryByText((content, element) => {
+    const hasText = (text) => element.textContent.includes(text);
+    return hasText("8 seconds remaining");
+  })).toBeInTheDocument();
+  act(() => {
+    jest.advanceTimersByTime(1000);
+  });
+  expect(screen.queryByText((content, element) => {
+    const hasText = (text) => element.textContent.includes(text);
+    return hasText("7 seconds remaining");
+  })).toBeInTheDocument();
 });
