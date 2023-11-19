@@ -1,24 +1,13 @@
-import React from 'react';
-import Question from './Question';
+import React from "react"
+import FoxImage from "./FoxImage"
 
-const App = () => {
-  const handleAnswered = (isCorrect) => {
-    // Logic to handle the user's answer
-    if (isCorrect) {
-      console.log('Correct answer!');
-      // Update score, move to next question, etc.
-    } else {
-      console.log('Wrong answer!');
-      // Update score, display correct answer, etc.
-    }
-  };
-
+function App() {
   return (
     <div>
-      {/* Other JSX code */}
-      <Question onAnswered={handleAnswered} />
+      <h1>🦊 FoxFindr 🦊</h1>
+      <FoxImage />
     </div>
   );
-};
+}
 
 export default App;
